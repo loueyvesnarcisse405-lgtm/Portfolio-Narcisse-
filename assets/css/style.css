@@ -3,7 +3,7 @@
    Feuille de style globale — structure calquée sur le template moodboard
    ========================================================================== */
 
-/* ---------- 1. Tokens (charte /Banding) ---------- */
+/* ---------- 1. Tokens (charte /01_Banding) ---------- */
 :root {
   /* Couleurs */
   --bg: #0b0b0b;            /* fond principal */

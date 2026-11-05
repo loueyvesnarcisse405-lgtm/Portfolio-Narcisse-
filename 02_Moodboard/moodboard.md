@@ -45,11 +45,11 @@ About Us · Services · Service Details · Projects · Project Details · Pricin
 - [ ] Animations : compteurs, bandeau défilant, apparition au scroll, éléments 3D
 - [ ] Comportement mobile du hero et de la grille projets
 - [ ] Style des boutons et des cartes (arrondis, bordures, ombres)
-- [ ] Captures d'écran de chaque section → à ranger dans `Moodboard/captures/`
+- [ ] Captures d'écran de chaque section → à ranger dans `02_Moodboard/captures/`
 
 ---
 
-## 3. Charte couleurs (dossier `Banding/`)
+## 3. Charte couleurs (dossier `01_Banding/`)
 
 Règle **60 / 30 / 10** :
 
@@ -61,4 +61,4 @@ Règle **60 / 30 / 10** :
 
 Gris neutres : `#E1E2E2` · `#8F9193` · `#45474A`.
 
-> ⚠️ Le plan du site (`Site plan/`) propose une autre palette (noir `#0B0B0B` dominant + or champagne `#C9A45C`). À trancher : **fond blanc (charte Banding)** ou **fond noir (plan du site)**.
+> ⚠️ Le plan du site (`03_Site plan/`) propose une autre palette (noir `#0B0B0B` dominant + or champagne `#C9A45C`). À trancher : **fond blanc (charte Banding)** ou **fond noir (plan du site)**.

@@ -16,9 +16,9 @@ Dépendances : `gsap` (+ ScrollTrigger) pour les animations, `lenis` pour le dé
 ## Structure
 ```
 PORTFOLIO NARCISSE/
-├── Banding/              Charte couleurs
-├── Moodboard/            Template de référence
-├── Site plan/            Plan du site
+├── 01_Banding/           Charte couleurs
+├── 02_Moodboard/         Template de référence
+├── 03_Site plan/         Plan du site
 ├── index.html            Accueil (fait)
 ├── a-propos.html         À faire
 ├── realisations.html     À faire
