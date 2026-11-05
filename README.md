@@ -3,7 +3,7 @@
 Site multi-pages HTML / CSS / JS propulsé par **Vite**.
 Dépendances : `gsap` (+ ScrollTrigger) pour les animations, `lenis` pour le défilement fluide.
 
-## Commandes (dans le dossier `site/`)
+## Commandes (à la racine du projet)
 | Commande | Rôle |
 |---|---|
 | `npm install` | Installer les dépendances (après un clone) |
@@ -15,7 +15,10 @@ Dépendances : `gsap` (+ ScrollTrigger) pour les animations, `lenis` pour le dé
 
 ## Structure
 ```
-site/
+PORTFOLIO NARCISSE/
+├── Banding/              Charte couleurs
+├── Moodboard/            Template de référence
+├── Site plan/            Plan du site
 ├── index.html            Accueil (fait)
 ├── a-propos.html         À faire
 ├── realisations.html     À faire
