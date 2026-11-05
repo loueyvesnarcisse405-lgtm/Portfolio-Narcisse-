@@ -1,0 +1,15 @@
+# Dépendances et build
+node_modules/
+dist/
+
+# Logs / environnement
+*.log
+.env
+.env.*
+
+# Système / éditeur
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
