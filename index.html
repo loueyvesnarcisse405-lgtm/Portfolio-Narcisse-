@@ -5,56 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Yves-Narcisse Loué — Réalisateur, cadreur & monteur vidéo</title>
   <meta name="description" content="Portfolio d'Yves-Narcisse Loué (RACHID-USORSHI), réalisateur, cadreur et monteur vidéo basé à Abidjan. Production audiovisuelle, photographie et infographie.">
-  <meta name="theme-color" content="#0b0b0b">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <script>document.documentElement.classList.add("js");</script>
+  <!-- @include head.html -->
 </head>
-<body>
+<body data-page="accueil">
 
-  <!-- SVG réutilisables -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <symbol id="i-spark" viewBox="0 0 40 40"><path fill="currentColor" d="M20 0c1.2 9.8 4.8 13.6 14.2 14.6l5.8.6-5.8.6C24.8 16.8 21.2 20.6 20 30.4 18.8 20.6 15.2 16.8 5.8 15.8L0 15.2l5.8-.6C15.2 13.6 18.8 9.8 20 0Z" transform="translate(0 4.8)"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
-    <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
-    <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></g></symbol>
-    <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.06c.53-1 1.83-1.85 3.76-1.85 4.02 0 4.88 2.4 4.88 5.6v5.75h-4v-5.1c0-1.22-.02-2.8-1.7-2.8-1.71 0-1.97 1.33-1.97 2.7v5.2h-4v-11Z"/></symbol>
-    <symbol id="i-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.75 15.02V8.98L15.5 12l-5.75 3.02Z"/></symbol>
-    <symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 3c.4 2.2 1.8 3.7 4 3.9v3.3c-1.5 0-2.8-.4-4-1.2v6.2A6.2 6.2 0 1 1 10.4 9v3.4a2.9 2.9 0 1 0 2.9 2.9V3h3.3Z"/></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></g></symbol>
-    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></symbol>
-    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
-    <symbol id="i-quote" viewBox="0 0 40 40"><path fill="currentColor" d="M4 30V20c0-7 3.6-11.6 10.8-13.5l1.2 3C12 11 10.2 13.4 10 17h6v13H4Zm20 0V20c0-7 3.6-11.6 10.8-13.5l1.2 3C32 11 30.2 13.4 30 17h6v13H24Z"/></symbol>
-  </svg>
-
-  <div class="progress" aria-hidden="true"></div>
-
-  <!-- ===================== NAVIGATION ===================== -->
-  <header class="nav">
-    <div class="container nav__inner">
-      <a href="index.html" class="logo" aria-label="Accueil — Yves-Narcisse Loué">
-        <span class="logo__mark">YN</span>
-        <span>Rachid-Usorshi<small>Yves-Narcisse Loué</small></span>
-      </a>
-
-      <nav class="nav__menu" aria-label="Navigation principale">
-        <a href="index.html" class="nav__link is-current" aria-current="page"><span>Accueil</span><span aria-hidden="true">Accueil</span></a>
-        <a href="a-propos.html" class="nav__link"><span>À propos</span><span aria-hidden="true">À propos</span></a>
-        <a href="realisations.html" class="nav__link"><span>Réalisations</span><span aria-hidden="true">Réalisations</span></a>
-        <a href="services.html" class="nav__link"><span>Services</span><span aria-hidden="true">Services</span></a>
-        <a href="contact.html" class="nav__link"><span>Contact</span><span aria-hidden="true">Contact</span></a>
-      </nav>
-
-      <div class="nav__cta">
-        <a href="contact.html" class="btn3d"><span class="btn3d__cube"><span class="btn3d__face">Parlons projet</span><span class="btn3d__face" aria-hidden="true">Parlons projet</span></span></a>
-        <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><i></i><i></i><i></i></button>
-      </div>
-    </div>
-    <div class="nav__border"></div>
-    <div class="nav__border-dyn"></div>
-  </header>
+  <!-- @include sprite.html -->
+  <!-- @include header.html -->
 
   <main>
 
@@ -319,47 +275,7 @@
       </div>
     </section>
 
-    <!-- ===================== 05. MÉTHODE ===================== -->
-    <section class="section section--dark" id="methode">
-      <div class="container process">
-        <div class="process__aside">
-          <div class="title" style="margin-bottom:0">
-            <div class="title__rule"><span class="label"><span class="diamond"></span>Ma méthode</span><span class="title__line"></span></div>
-            <h2>Du brief à la diffusion</h2>
-            <p>Un processus clair, pour avancer sereinement et livrer dans les délais.</p>
-          </div>
-          <div class="process__counter"><span data-step-current>1</span><small>/ 4</small></div>
-          <div class="process__bar"><span></span></div>
-        </div>
-
-        <div>
-          <article class="step">
-            <span class="step__num">ÉTAPE 01</span>
-            <h3>Brief &amp; stratégie</h3>
-            <p>On définit ensemble l'objectif, le public, le message et le format de diffusion.</p>
-            <ul><li><span class="diamond"></span>Écoute et analyse du besoin</li><li><span class="diamond"></span>Note d'intention et références visuelles</li><li><span class="diamond"></span>Devis et planning</li></ul>
-          </article>
-          <article class="step">
-            <span class="step__num">ÉTAPE 02</span>
-            <h3>Préparation &amp; tournage</h3>
-            <p>Repérages, découpage et prise de vue : chaque plan est pensé pour le montage.</p>
-            <ul><li><span class="diamond"></span>Découpage technique</li><li><span class="diamond"></span>Direction visuelle sur le plateau</li><li><span class="diamond"></span>Cadrage et captation</li></ul>
-          </article>
-          <article class="step">
-            <span class="step__num">ÉTAPE 03</span>
-            <h3>Montage &amp; postproduction</h3>
-            <p>Le récit prend forme : rythme, habillage, son et étalonnage.</p>
-            <ul><li><span class="diamond"></span>Dérushage et montage</li><li><span class="diamond"></span>Titrage, motion design et sound design</li><li><span class="diamond"></span>Étalonnage et finitions</li></ul>
-          </article>
-          <article class="step">
-            <span class="step__num">ÉTAPE 04</span>
-            <h3>Livraison &amp; diffusion</h3>
-            <p>Des fichiers prêts à publier, adaptés à chaque plateforme.</p>
-            <ul><li><span class="diamond"></span>Allers-retours de validation</li><li><span class="diamond"></span>Déclinaisons de formats (16:9, 9:16, 1:1)</li><li><span class="diamond"></span>Livraison des fichiers finaux</li></ul>
-          </article>
-        </div>
-      </div>
-    </section>
+    <!-- @include process.html -->
 
     <!-- ===================== 06. TÉMOIGNAGES ===================== -->
     <!-- Remplacer par de vrais témoignages (avec accord des clients) -->
@@ -425,57 +341,10 @@
       </div>
     </section>
 
-    <!-- ===================== 08. CTA CONTACT ===================== -->
-    <section class="cta" id="contact">
-      <div class="cta__bg ph" data-label=""></div>
-      <div class="container">
-        <span class="label"><span class="diamond"></span>Parlons de votre projet<span class="diamond"></span></span>
-        <h2>Vous avez un projet audiovisuel ? Donnons-lui forme.</h2>
-        <a href="contact.html" class="btn3d"><span class="btn3d__cube"><span class="btn3d__face">Me contacter</span><span class="btn3d__face" aria-hidden="true">Me contacter</span></span></a>
-        <!-- Remplacer par les vraies coordonnées -->
-        <div class="cta__contacts">
-          <a href="mailto:contact@exemple.com"><svg><use href="#i-mail"/></svg>contact@exemple.com</a>
-          <a href="https://wa.me/2250000000000"><svg><use href="#i-phone"/></svg>+225 00 00 00 00 00</a>
-          <a href="contact.html"><svg><use href="#i-pin"/></svg>Abidjan, Côte d'Ivoire</a>
-        </div>
-      </div>
-    </section>
+    <!-- @include cta.html -->
 
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__top">
-        <nav class="footer__links" aria-label="Pied de page">
-          <a href="index.html"><span>Accueil</span><span aria-hidden="true">Accueil</span></a>
-          <a href="a-propos.html"><span>À propos</span><span aria-hidden="true">À propos</span></a>
-          <a href="realisations.html"><span>Réalisations</span><span aria-hidden="true">Réalisations</span></a>
-        </nav>
-        <div class="footer__brand">
-          <a href="index.html" class="logo"><span class="logo__mark">YN</span><span>Rachid-Usorshi</span></a>
-          <p>Réalisateur, cadreur &amp; monteur vidéo. Infographie &amp; communication visuelle.</p>
-          <div class="socials" style="margin:0">
-            <a href="#" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
-            <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
-            <a href="#" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
-            <a href="#" aria-label="TikTok"><svg><use href="#i-tiktok"/></svg></a>
-          </div>
-        </div>
-        <nav class="footer__links footer__links--end" aria-label="Pied de page (suite)">
-          <a href="services.html"><span>Services</span><span aria-hidden="true">Services</span></a>
-          <a href="contact.html"><span>Contact</span><span aria-hidden="true">Contact</span></a>
-          <a href="assets/cv/cv-yves-narcisse-loue.pdf" download><span>CV (PDF)</span><span aria-hidden="true">CV (PDF)</span></a>
-        </nav>
-      </div>
-      <div class="footer__big" aria-hidden="true">Yves-Narcisse</div>
-      <div class="footer__bottom">
-        <span>© <span data-year>2026</span> Yves-Narcisse Loué — RACHID-USORSHI. Tous droits réservés.</span>
-        <span>Abidjan, Côte d'Ivoire</span>
-      </div>
-    </div>
-  </footer>
-
-  <script type="module" src="./assets/js/main.js"></script>
+  <!-- @include footer.html -->
 </body>
 </html>

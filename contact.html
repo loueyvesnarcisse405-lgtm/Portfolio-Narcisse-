@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Parlons de votre projet | Yves-Narcisse Loué</title>
+  <meta name="description" content="Contactez Yves-Narcisse Loué, réalisateur, cadreur et monteur vidéo à Abidjan, pour votre projet audiovisuel, photo ou graphique.">
+  <!-- @include head.html -->
+</head>
+<body data-page="contact">
+
+  <!-- @include sprite.html -->
+  <!-- @include header.html -->
+
+  <main>
+
+    <!-- ===================== EN-TÊTE ===================== -->
+    <section class="page-hero">
+      <div class="page-hero__glow"></div>
+      <div class="page-hero__ghost" aria-hidden="true">Contact</div>
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a><span class="diamond"></span><span aria-current="page">Contact</span></nav>
+        <h1><span class="line"><span>Parlons de</span></span><span class="line"><span class="accent">votre projet</span></span></h1>
+        <p class="page-hero__lead">Vous avez un projet audiovisuel ou une idée à mettre en images ? Échangeons pour lui donner forme.</p>
+      </div>
+    </section>
+
+    <!-- ===================== COORDONNÉES + FORMULAIRE ===================== -->
+    <section class="section">
+      <div class="container contact">
+
+        <!-- À REMPLACER : vraies coordonnées (aussi dans partials/cta.html) -->
+        <div class="cinfo">
+          <div class="title" style="margin-bottom:20px">
+            <div class="title__rule"><span class="label"><span class="diamond"></span>Coordonnées</span><span class="title__line"></span></div>
+            <h2 style="font-size:clamp(30px,3.2vw,44px)">Écrivez-moi directement</h2>
+            <span class="availability"><i></i>Disponible pour de nouveaux projets</span>
+          </div>
+          <a class="cinfo__item reveal" href="mailto:contact@exemple.com">
+            <span class="cinfo__icon"><svg><use href="#i-mail"/></svg></span>
+            <span><small>E-mail</small><strong>contact@exemple.com</strong></span>
+          </a>
+          <a class="cinfo__item reveal" href="https://wa.me/2250000000000" target="_blank" rel="noopener">
+            <span class="cinfo__icon"><svg><use href="#i-whatsapp"/></svg></span>
+            <span><small>Téléphone / WhatsApp</small><strong>+225 00 00 00 00 00</strong></span>
+          </a>
+          <div class="cinfo__item reveal">
+            <span class="cinfo__icon"><svg><use href="#i-pin"/></svg></span>
+            <span><small>Localisation</small><strong>Abidjan, Côte d'Ivoire</strong></span>
+          </div>
+          <div class="socials reveal">
+            <a href="#" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg><use href="#i-tiktok"/></svg></a>
+          </div>
+        </div>
+
+        <!--
+          Envoi du formulaire :
+          - data-endpoint vide → ouvre la messagerie du visiteur avec le message pré-rempli vers data-mailto
+          - pour un envoi direct, créer un formulaire gratuit sur formspree.io et coller son URL dans data-endpoint
+        -->
+        <form class="form reveal" data-contact-form data-endpoint="" data-mailto="contact@exemple.com" novalidate>
+          <h2>Votre projet</h2>
+          <p style="margin:0">Quelques lignes suffisent : je vous réponds rapidement avec une proposition.</p>
+          <div class="form__grid">
+            <div class="form__field">
+              <label for="f-nom">Nom <span>*</span></label>
+              <input id="f-nom" name="nom" type="text" autocomplete="name" required>
+            </div>
+            <div class="form__field">
+              <label for="f-email">E-mail <span>*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="form__field">
+              <label for="f-objet">Objet <span>*</span></label>
+              <input id="f-objet" name="objet" type="text" required>
+            </div>
+            <div class="form__field">
+              <label for="f-type">Type de projet</label>
+              <select id="f-type" name="type">
+                <option value="">Choisir…</option>
+                <option>Film institutionnel / corporate</option>
+                <option>Publicité / film promotionnel</option>
+                <option>Clip / projet artistique</option>
+                <option>Émission / interview / podcast</option>
+                <option>Reportage / événement</option>
+                <option>Photographie</option>
+                <option>Infographie</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="form__field form__field--full">
+              <label for="f-message">Message <span>*</span></label>
+              <textarea id="f-message" name="message" required placeholder="Décrivez votre projet, vos délais et votre budget indicatif."></textarea>
+            </div>
+          </div>
+          <div class="form__foot">
+            <p><span class="accent">*</span> Champs obligatoires</p>
+            <button type="submit" class="btn3d"><span class="btn3d__cube"><span class="btn3d__face">Envoyer le message</span><span class="btn3d__face" aria-hidden="true">Envoyer le message</span></span></button>
+          </div>
+          <p class="form__status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- @include footer.html -->
+</body>
+</html>

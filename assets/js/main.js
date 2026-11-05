@@ -108,6 +108,8 @@ import Lenis from "lenis";
   /* ---------- Apparitions au scroll ---------- */
   if (hasGsap && !reduced) {
     // Titre du hero ligne par ligne
+    gsap.from(".page-hero h1 .line > span", { yPercent: 110, duration: 1.1, ease: "power4.out", stagger: 0.12, delay: 0.1 });
+    gsap.from(".page-hero .breadcrumb, .page-hero__lead", { opacity: 0, y: 20, duration: 0.9, ease: "power3.out", stagger: 0.1, delay: 0.4 });
     gsap.from(".hero__title .line > span", { yPercent: 110, duration: 1.1, ease: "power4.out", stagger: 0.12, delay: 0.15 });
     gsap.from(".hero__visual", { opacity: 0, scale: 0.94, duration: 1.2, ease: "power3.out", delay: 0.3 });
 
@@ -213,6 +215,114 @@ import Lenis from "lenis";
       if (hasGsap) setTimeout(function () { ScrollTrigger.refresh(); }, 500);
     });
   });
+
+  /* ---------- Page active dans le menu ---------- */
+  var page = document.body.getAttribute("data-page");
+  if (page) {
+    document.querySelectorAll('[data-nav="' + page + '"]').forEach(function (a) {
+      a.classList.add("is-current");
+      a.setAttribute("aria-current", "page");
+    });
+  }
+
+  /* ---------- Réalisations : filtres ---------- */
+  var filterBar = document.querySelector("[data-filters]");
+  if (filterBar) {
+    var works = document.querySelectorAll("[data-cat]");
+    var emptyMsg = document.querySelector("[data-works-empty]");
+    function applyFilter(cat) {
+      var shown = 0;
+      filterBar.querySelectorAll("button").forEach(function (b) {
+        var on = b.getAttribute("data-filter") === cat;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      works.forEach(function (w) {
+        var match = cat === "tous" || w.getAttribute("data-cat") === cat;
+        w.classList.toggle("is-hidden", !match);
+        if (match) shown++;
+      });
+      if (emptyMsg) emptyMsg.hidden = shown > 0;
+      if (hasGsap) ScrollTrigger.refresh();
+    }
+    filterBar.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-filter]");
+      if (!b) return;
+      applyFilter(b.getAttribute("data-filter"));
+      if (history.replaceState) history.replaceState(null, "", "#" + b.getAttribute("data-filter"));
+    });
+    var initial = location.hash.slice(1);
+    if (initial && filterBar.querySelector('[data-filter="' + initial + '"]')) applyFilter(initial);
+  }
+
+  /* ---------- Lecteur vidéo (modale) ----------
+     Sur un élément : data-video="https://www.youtube.com/embed/ID" (ou Vimeo) */
+  var modal = document.querySelector(".vmodal");
+  if (modal) {
+    var frame = modal.querySelector(".vmodal__frame");
+    var lastFocus = null;
+    function closeModal() {
+      modal.classList.remove("is-open");
+      frame.innerHTML = "";
+      if (lenis) lenis.start();
+      if (lastFocus) lastFocus.focus();
+    }
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest("[data-video]");
+      if (t) {
+        e.preventDefault();
+        var src = t.getAttribute("data-video");
+        lastFocus = t;
+        frame.innerHTML = src
+          ? '<iframe src="' + src + (src.indexOf("?") > -1 ? "&" : "?") + 'autoplay=1" title="Lecteur vidéo" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>'
+          : '<p class="vmodal__empty">Vidéo à venir : ajoutez le lien YouTube ou Vimeo dans l\'attribut <code>data-video</code>.</p>';
+        modal.classList.add("is-open");
+        if (lenis) lenis.stop();
+        modal.querySelector(".vmodal__close").focus();
+        return;
+      }
+      if (e.target === modal || e.target.closest(".vmodal__close")) closeModal();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+    });
+  }
+
+  /* ---------- Formulaire de contact ----------
+     data-endpoint vide → ouvre la messagerie (mailto).
+     Avec un service type Formspree : renseigner data-endpoint="https://formspree.io/f/XXXX" */
+  var form = document.querySelector("[data-contact-form]");
+  if (form) {
+    var status = form.querySelector("[data-form-status]");
+    function setStatus(msg, ok) {
+      status.textContent = msg;
+      status.className = "form__status " + (ok ? "is-ok" : "is-error");
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var data = new FormData(form);
+      var endpoint = form.getAttribute("data-endpoint");
+      if (!endpoint) {
+        var to = form.getAttribute("data-mailto");
+        var body = "Nom : " + data.get("nom") + "\nE-mail : " + data.get("email") +
+          (data.get("type") ? "\nType de projet : " + data.get("type") : "") + "\n\n" + data.get("message");
+        window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent(data.get("objet")) + "&body=" + encodeURIComponent(body);
+        setStatus("Votre messagerie va s'ouvrir avec le message prêt à envoyer.", true);
+        return;
+      }
+      var btn = form.querySelector("[type=submit]");
+      btn.disabled = true;
+      fetch(endpoint, { method: "POST", body: data, headers: { Accept: "application/json" } })
+        .then(function (r) {
+          if (!r.ok) throw new Error();
+          form.reset();
+          setStatus("Merci ! Votre message a bien été envoyé. Je vous réponds rapidement.", true);
+        })
+        .catch(function () { setStatus("L'envoi a échoué. Écrivez-moi directement par e-mail ou WhatsApp.", false); })
+        .then(function () { btn.disabled = false; });
+    });
+  }
 
   /* ---------- Année du footer ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });

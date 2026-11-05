@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- MODÈLE DE FICHE PROJET : dupliquer ce fichier pour chaque projet (ex. projet-bloom.html) -->
+  <title>Bloom — Projet | Yves-Narcisse Loué</title>
+  <meta name="description" content="Fiche projet : contexte, rôle, vidéo et images du projet réalisé par Yves-Narcisse Loué.">
+  <!-- @include head.html -->
+</head>
+<body data-page="realisations">
+
+  <!-- @include sprite.html -->
+  <!-- @include header.html -->
+
+  <main>
+
+    <!-- ===================== EN-TÊTE ===================== -->
+    <section class="page-hero">
+      <div class="page-hero__glow"></div>
+      <div class="page-hero__ghost" aria-hidden="true">Bloom</div>
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a><span class="diamond"></span><a href="realisations.html">Réalisations</a><span class="diamond"></span><span aria-current="page">Bloom</span></nav>
+        <h1><span class="line"><span>Bloom</span></span><span class="line"><span class="accent">Light &amp; Sound</span></span></h1>
+        <p class="page-hero__lead">Publicité &amp; film promotionnel</p>
+      </div>
+    </section>
+
+    <!-- ===================== MÉTADONNÉES ===================== -->
+    <section class="section" style="padding-bottom:0">
+      <div class="container">
+        <dl class="meta reveal">
+          <div><dt>Catégorie</dt><dd>Publicité</dd></div>
+          <div><dt>Année</dt><dd>20XX</dd></div>
+          <div><dt>Client</dt><dd>Bloom</dd></div>
+          <div><dt>Mon rôle</dt><dd>Réalisation, cadrage, montage</dd></div>
+          <div><dt>Outils</dt><dd>Premiere Pro, DaVinci Resolve</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===================== VIDÉO ===================== -->
+    <section class="section">
+      <div class="container">
+        <!-- data-video="https://www.youtube.com/embed/ID" -->
+        <button type="button" class="showreel reveal" data-video="" aria-label="Lire la vidéo du projet">
+          <span class="ph" data-label="Image de la vidéo"></span>
+          <span class="showreel__play"><svg><use href="#i-play"/></svg></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== CONTEXTE & RÔLE ===================== -->
+    <section class="section section--dark">
+      <div class="container project-body">
+        <div class="reveal">
+          <div class="title__rule" style="margin-bottom:20px"><span class="label"><span class="diamond"></span>Le projet</span><span class="title__line"></span></div>
+          <h2>Contexte &amp; objectif</h2>
+          <p>À compléter : présentation du client et de son besoin, le message à transmettre et le public visé.</p>
+          <p>À compléter : les contraintes du projet (délais, lieux, format de diffusion) et la réponse apportée.</p>
+        </div>
+        <div class="reveal">
+          <div class="title__rule" style="margin-bottom:20px"><span class="label"><span class="diamond"></span>Ma contribution</span><span class="title__line"></span></div>
+          <h2>Mon rôle</h2>
+          <p>À compléter : les tâches réalisées personnellement sur ce projet. Ne mentionner que son propre travail ; créditer les collaborateurs ci-dessous.</p>
+          <div class="roles"><span>Réalisation</span><span>Cadrage</span><span>Montage</span><span>Étalonnage</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GALERIE ===================== -->
+    <section class="section">
+      <div class="container">
+        <div class="title">
+          <div class="title__rule"><span class="label"><span class="diamond"></span>Images du projet</span><span class="title__line"></span></div>
+        </div>
+        <div class="gallery">
+          <div class="ph reveal" data-label="Image 1"></div>
+          <div class="ph reveal" data-label="Image 2"></div>
+          <div class="ph reveal" data-label="Image 3"></div>
+          <div class="ph reveal" data-label="Image 4"></div>
+          <div class="ph reveal" data-label="Image 5"></div>
+          <div class="ph reveal" data-label="Image 6"></div>
+          <div class="ph reveal" data-label="Image 7"></div>
+        </div>
+
+        <div class="title" style="margin:80px 0 30px">
+          <div class="title__rule"><span class="label"><span class="diamond"></span>Crédits</span><span class="title__line"></span></div>
+        </div>
+        <dl class="credits">
+          <div><dt>Réalisation</dt><dd>Yves-Narcisse Loué</dd></div>
+          <div><dt>Production</dt><dd>À compléter</dd></div>
+          <div><dt>Musique</dt><dd>À compléter</dd></div>
+        </dl>
+
+        <a href="projet.html" class="next-project" style="margin-top:80px">
+          <span><small>Projet suivant</small><strong>Reggae Fly</strong></span>
+          <span class="work__arrow"><svg width="26" height="26"><use href="#i-arrow"/></svg></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- @include cta.html -->
+
+  </main>
+
+  <div class="vmodal" role="dialog" aria-modal="true" aria-label="Lecteur vidéo">
+    <div class="vmodal__box">
+      <button type="button" class="vmodal__close" aria-label="Fermer la vidéo"><svg><use href="#i-plus"/></svg></button>
+      <div class="vmodal__frame"></div>
+    </div>
+  </div>
+
+  <!-- @include footer.html -->
+</body>
+</html>
