@@ -776,6 +776,7 @@ h3 { font-size: 24px; line-height: 1.25; }
   padding: 18px;
 }
 .soft .tool__logo { width: 52px; height: 52px; font-size: 19px; border-radius: 12px; flex: none; }
+.soft .tool__logo--img { width: 64px; height: 64px; border-radius: 14px; }
 .soft strong { display: block; font: 700 18px/1.2 var(--font-heading); }
 .soft span { font-size: 13px; color: var(--soft); }
 .note { font-size: 14px; color: var(--soft); margin-top: 24px; }
