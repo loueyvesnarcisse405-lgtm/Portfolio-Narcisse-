@@ -410,6 +410,11 @@ h3 { font-size: 24px; line-height: 1.25; }
   font: 800 26px/1 var(--font-body);
   background: #000; border: 2px solid var(--primary); color: var(--primary);
 }
+.tool__logo--img {
+  width: 96px; height: 96px; border-radius: 22px;
+  border: 0; object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0,0,0,.45);
+}
 .tool h3 { font-size: 20px; text-align: center; padding: 0 20px; }
 .tool:hover { transform: translateY(-10px); z-index: 2; }
 .tool:hover { background: linear-gradient(180deg, var(--primary), transparent 80%); }
@@ -667,6 +672,7 @@ h3 { font-size: 24px; line-height: 1.25; }
   .about__stats { grid-template-columns: 1fr; gap: 16px; }
   .tool { width: 160px; height: 160px; margin: 0 -6px -10px; }
   .tool__logo { width: 52px; height: 52px; font-size: 20px; border-radius: 14px; }
+  .tool__logo--img { width: 64px; height: 64px; border-radius: 16px; }
   .tool h3 { font-size: 16px; }
   .about__images .ph:nth-child(2) { transform: translateY(30px); }
   .marquees { height: 170px; }
