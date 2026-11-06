@@ -36,6 +36,60 @@ import Lenis from "lenis";
     });
   }
 
+  /* ---------- Curseur « Survole » ----------
+     Un anneau fin suit la souris avec retard ; un point blanc la suit
+     avec un effet ressort (il dépasse, oscille et tourne autour de l'anneau). */
+  if (!reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var ring = document.createElement("div");
+    var dot = document.createElement("div");
+    ring.className = "survole survole__ring";
+    dot.className = "survole survole__dot";
+    ring.setAttribute("aria-hidden", "true");
+    dot.setAttribute("aria-hidden", "true");
+    document.body.appendChild(ring);
+    document.body.appendChild(dot);
+
+    var mouse = { x: -100, y: -100 };
+    var ringPos = { x: -100, y: -100 };
+    var dotPos = { x: -100, y: -100 };
+    var dotVel = { x: 0, y: 0 };
+    var started = false;
+
+    window.addEventListener("mousemove", function (e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      if (!started) {
+        started = true;
+        ringPos.x = dotPos.x = mouse.x;
+        ringPos.y = dotPos.y = mouse.y;
+      }
+      document.documentElement.classList.add("survole-on");
+    }, { passive: true });
+    document.addEventListener("mouseleave", function () {
+      document.documentElement.classList.remove("survole-on");
+    });
+
+    gsap.ticker.add(function (time, deltaMs) {
+      // Normalise à 60 i/s pour garder la même sensation quel que soit l'écran
+      var f = Math.min(deltaMs / 16.67, 3);
+      // Anneau : suivi lent et amorti
+      var ease = 1 - Math.pow(1 - 0.12, f);
+      ringPos.x += (mouse.x - ringPos.x) * ease;
+      ringPos.y += (mouse.y - ringPos.y) * ease;
+      // Point : ressort (raideur + frottement) pour l'effet d'orbite
+      dotVel.x += (mouse.x - dotPos.x) * 0.09 * f;
+      dotVel.y += (mouse.y - dotPos.y) * 0.09 * f;
+      var damp = Math.pow(0.78, f);
+      dotVel.x *= damp;
+      dotVel.y *= damp;
+      dotPos.x += dotVel.x * f;
+      dotPos.y += dotVel.y * f;
+
+      ring.style.transform = "translate3d(" + ringPos.x + "px," + ringPos.y + "px,0) translate(-50%,-50%)";
+      dot.style.transform = "translate3d(" + dotPos.x + "px," + dotPos.y + "px,0) translate(-50%,-50%)";
+    });
+  }
+
   /* ---------- Barre de progression + filet de la nav ---------- */
   var progress = document.querySelector(".progress");
   var navDyn = document.querySelector(".nav__border-dyn");

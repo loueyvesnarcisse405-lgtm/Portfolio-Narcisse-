@@ -1004,3 +1004,27 @@ button.btn3d:disabled { opacity: .6; cursor: wait; }
   .js .reveal { opacity: 1; transform: none; }
   .js .reveal-mask > * { transform: none; }
 }
+
+/* ---------- Curseur « Survole » ---------- */
+.survole {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity .3s ease;
+  will-change: transform;
+}
+.survole-on .survole { opacity: 1; }
+.survole__ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(255, 254, 252, .6);
+}
+.survole__dot {
+  width: 8px;
+  height: 8px;
+  background: var(--text);
+}
