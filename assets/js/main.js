@@ -102,6 +102,43 @@ import Lenis from "lenis";
     });
   }
 
+  /* ---------- Bulles du hero ----------
+     Petites bulles colorées qui dérivent vers la droite et passent
+     derrière la photo, puis réapparaissent ailleurs. */
+  var bubbleBox = document.querySelector("[data-bubbles]");
+  if (bubbleBox && !reduced && bubbleBox.animate) {
+    var BUBBLE_TYPES = [
+      { color: "#cfe6ff", min: 6, max: 8 },    // bleu clair, petite
+      { color: "#8f6bb5", min: 10, max: 13 },  // violet, moyenne
+      { color: "#f6b8c6", min: 16, max: 20 }   // rose, grande
+    ];
+    var rand = function (a, b) { return a + Math.random() * (b - a); };
+
+    var launch = function (el, delay) {
+      var type = BUBBLE_TYPES[Math.floor(Math.random() * BUBBLE_TYPES.length)];
+      var size = rand(type.min, type.max);
+      var w = bubbleBox.clientWidth, h = bubbleBox.clientHeight;
+      var x0 = rand(0, w * 0.45), y0 = rand(0, h);
+      var dx = rand(w * 0.35, w * 0.6), dy = rand(-h * 0.08, h * 0.04);
+      el.style.width = el.style.height = size + "px";
+      el.style.background = type.color;
+      var anim = el.animate([
+        { transform: "translate(" + x0 + "px," + y0 + "px)", opacity: 0 },
+        { opacity: 1, offset: 0.12 },
+        { opacity: 1, offset: 0.85 },
+        { transform: "translate(" + (x0 + dx) + "px," + (y0 + dy) + "px)", opacity: 0 }
+      ], { duration: rand(5000, 8000), delay: delay, easing: "linear", fill: "both" });
+      anim.onfinish = function () { launch(el, rand(200, 1500)); };
+    };
+
+    for (var b = 0; b < 7; b++) {
+      var bubble = document.createElement("span");
+      bubble.className = "bubble";
+      bubbleBox.appendChild(bubble);
+      launch(bubble, b * 900);
+    }
+  }
+
   /* ---------- Barre de progression + filet de la nav ---------- */
   var progress = document.querySelector(".progress");
   var navDyn = document.querySelector(".nav__border-dyn");
