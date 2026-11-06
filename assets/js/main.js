@@ -37,8 +37,8 @@ import Lenis from "lenis";
   }
 
   /* ---------- Curseur « Survole » ----------
-     Un anneau fin suit la souris avec retard ; un point blanc la suit
-     avec un effet ressort (il dépasse, oscille et tourne autour de l'anneau). */
+     Un anneau fin suit la souris avec retard ; un point blanc tourne
+     sur le bord de l'anneau tant que la souris bouge, puis ralentit et s'arrête. */
   if (!reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     var ring = document.createElement("div");
     var dot = document.createElement("div");
@@ -49,10 +49,13 @@ import Lenis from "lenis";
     document.body.appendChild(ring);
     document.body.appendChild(dot);
 
+    var RADIUS = 17;                       // rayon de l'orbite = rayon de l'anneau
     var mouse = { x: -100, y: -100 };
-    var ringPos = { x: -100, y: -100 };
-    var dotPos = { x: -100, y: -100 };
-    var dotVel = { x: 0, y: 0 };
+    var last = { x: -100, y: -100 };
+    var ringPos = { x: -100, y: -100 };     // centre de l'anneau (suivi lent)
+    var anchor = { x: -100, y: -100 };      // centre de l'orbite du point (suivi plus vif)
+    var angle = -Math.PI / 2;               // départ en haut de l'anneau
+    var spin = 0;                           // vitesse de rotation (rad / image)
     var started = false;
 
     window.addEventListener("mousemove", function (e) {
@@ -60,8 +63,8 @@ import Lenis from "lenis";
       mouse.y = e.clientY;
       if (!started) {
         started = true;
-        ringPos.x = dotPos.x = mouse.x;
-        ringPos.y = dotPos.y = mouse.y;
+        ringPos.x = anchor.x = last.x = mouse.x;
+        ringPos.y = anchor.y = last.y = mouse.y;
       }
       document.documentElement.classList.add("survole-on");
     }, { passive: true });
@@ -76,17 +79,26 @@ import Lenis from "lenis";
       var ease = 1 - Math.pow(1 - 0.12, f);
       ringPos.x += (mouse.x - ringPos.x) * ease;
       ringPos.y += (mouse.y - ringPos.y) * ease;
-      // Point : ressort (raideur + frottement) pour l'effet d'orbite
-      dotVel.x += (mouse.x - dotPos.x) * 0.09 * f;
-      dotVel.y += (mouse.y - dotPos.y) * 0.09 * f;
-      var damp = Math.pow(0.78, f);
-      dotVel.x *= damp;
-      dotVel.y *= damp;
-      dotPos.x += dotVel.x * f;
-      dotPos.y += dotVel.y * f;
+      // Centre de l'orbite : suit la souris plus vite que l'anneau,
+      // le point prend donc un peu d'avance quand la souris file
+      var easeDot = 1 - Math.pow(1 - 0.22, f);
+      anchor.x += (mouse.x - anchor.x) * easeDot;
+      anchor.y += (mouse.y - anchor.y) * easeDot;
 
+      // Rotation : accélère avec la vitesse de la souris (sens anti-horaire),
+      // puis ralentit en douceur quand la souris s'arrête
+      var speed = Math.hypot(mouse.x - last.x, mouse.y - last.y) / f;
+      last.x = mouse.x;
+      last.y = mouse.y;
+      var targetSpin = Math.min(speed * 0.02, 0.17);
+      var easeSpin = 1 - Math.pow(1 - (targetSpin > spin ? 0.2 : 0.06), f);
+      spin += (targetSpin - spin) * easeSpin;
+      angle -= spin * f;
+
+      var dx = anchor.x + Math.cos(angle) * RADIUS;
+      var dy = anchor.y + Math.sin(angle) * RADIUS;
       ring.style.transform = "translate3d(" + ringPos.x + "px," + ringPos.y + "px,0) translate(-50%,-50%)";
-      dot.style.transform = "translate3d(" + dotPos.x + "px," + dotPos.y + "px,0) translate(-50%,-50%)";
+      dot.style.transform = "translate3d(" + dx + "px," + dy + "px,0) translate(-50%,-50%)";
     });
   }
 

@@ -1019,9 +1019,9 @@ button.btn3d:disabled { opacity: .6; cursor: wait; }
 }
 .survole-on .survole { opacity: 1; }
 .survole__ring {
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid rgba(255, 254, 252, .6);
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 254, 252, .7);
 }
 .survole__dot {
   width: 8px;
