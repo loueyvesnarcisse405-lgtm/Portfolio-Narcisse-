@@ -861,10 +861,10 @@ h3 { font-size: 24px; line-height: 1.25; }
 .works__empty { text-align: center; padding: 60px 0; }
 /* Cartes au format portrait (Reels, 9:16) — rubrique Vidéo IA */
 .work--reel .work__media { aspect-ratio: 9 / 16; }
-.works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not(.is-hidden))) > .work:not(.work--reel) { grid-column: span 2; }
-.works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not(.is-hidden))) { grid-template-columns: repeat(5, 1fr); gap: 16px; }
-@media (max-width: 991px) { .works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not(.is-hidden))) { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 640px) { .works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not(.is-hidden))) { grid-template-columns: 1fr 1fr; gap: 12px; } }
+.works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not([data-cat="design"]):not(.is-hidden))) > .work:not(.work--reel) { grid-column: span 2; }
+.works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not([data-cat="design"]):not(.is-hidden))) { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+@media (max-width: 991px) { .works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not([data-cat="design"]):not(.is-hidden))) { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .works:has(> .work--reel:not(.is-hidden)):not(:has(> .work:not(.work--reel):not([data-cat="ia"]):not([data-cat="design"]):not(.is-hidden))) { grid-template-columns: 1fr 1fr; gap: 12px; } }
 
 /* Modale vidéo */
 .vmodal {
