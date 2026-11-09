@@ -84,8 +84,15 @@
         </style>
         <button type="button" class="showreel reveal" data-video="" aria-label="Lire le showreel">
           <span class="reel-mix" data-reel-mix aria-hidden="true">
-            <video muted playsinline preload="none"></video>
-            <video muted playsinline preload="none"></video>
+            <!-- Plans du montage (src dans le HTML pour que Vite les inclue au build) ; #t = seconde de départ -->
+            <video muted playsinline preload="none" src="./assets/video/spot-01.mp4#t=6"></video>
+            <video muted playsinline preload="none" src="./assets/video/motion/motion-07.mp4#t=3"></video>
+            <video muted playsinline preload="none" src="./assets/video/spot-03.mp4#t=5"></video>
+            <video muted playsinline preload="none" src="./assets/video/motion/motion-12.mp4#t=2"></video>
+            <video muted playsinline preload="none" src="./assets/video/motion/motion-08.mp4#t=4"></video>
+            <video muted playsinline preload="none" src="./assets/video/motion/motion-14.mp4#t=3"></video>
+            <video muted playsinline preload="none" src="./assets/video/motion/motion-09.mp4#t=5"></video>
+            <video muted playsinline preload="none" src="./assets/video/motion/motion-02.mp4#t=1"></video>
             <span class="reel-mix__shade"></span>
             <span class="reel-mix__grain"></span>
             <span class="reel-mix__flash"></span>
@@ -100,58 +107,49 @@
           (function () {
             var root = document.querySelector("[data-reel-mix]");
             if (!root) return;
-            // Plans du montage : fichier + seconde de départ (on saute les génériques)
-            var shots = [
-              ["./assets/video/spot-01.mp4", 6],
-              ["./assets/video/motion/motion-07.mp4", 3],
-              ["./assets/video/spot-03.mp4", 5],
-              ["./assets/video/motion/motion-12.mp4", 2],
-              ["./assets/video/motion/motion-08.mp4", 4],
-              ["./assets/video/motion/motion-14.mp4", 3],
-              ["./assets/video/motion/motion-09.mp4", 5],
-              ["./assets/video/motion/motion-02.mp4", 1]
-            ];
             var SHOT = 4500;
             var vids = root.querySelectorAll("video");
             var flash = root.querySelector(".reel-mix__flash");
             var count = root.querySelector("[data-reel-count]");
             var bar = root.querySelector(".reel-mix__progress");
             root.style.setProperty("--shot", SHOT / 1000 + "s");
-            shots.forEach(function () { bar.appendChild(document.createElement("i")); });
+            vids.forEach(function () { bar.appendChild(document.createElement("i")); });
             var ticks = bar.querySelectorAll("i");
             var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            var i = 0, front = 0, timer = null, running = false;
+            var i = 0, timer = null, running = false;
 
-            function load(v, n) {
-              v.src = shots[n][0] + "#t=" + shots[n][1];
-              v.preload = "auto";
-              v.load();
-            }
+            // seconde de départ lue dans le #t= de chaque src
+            function startAt(v) { var m = /#t=([\d.]+)/.exec(v.getAttribute("src") || ""); return m ? parseFloat(m[1]) : 0; }
+            function prep(v) { if (v.preload !== "auto") { v.preload = "auto"; v.load(); } }
             function pad(n) { return (n < 10 ? "0" : "") + n; }
-            function show(n) {
-              var cur = vids[front], nxt = vids[1 - front];
+            function show(n, prev) {
+              var nxt = vids[n];
+              prep(nxt);
+              try { nxt.currentTime = startAt(nxt); } catch (e) {}
               nxt.play().catch(function () {});
               nxt.classList.add("is-on");
-              cur.classList.remove("is-on");
-              front = 1 - front;
-              setTimeout(function () { cur.pause(); load(cur, (n + 1) % shots.length); }, 1500);
-              count.textContent = pad(n + 1) + " / " + pad(shots.length);
+              if (prev != null && prev !== n) {
+                var cur = vids[prev];
+                cur.classList.remove("is-on");
+                setTimeout(function () { cur.pause(); }, 1500);
+              }
+              prep(vids[(n + 1) % vids.length]); // le plan suivant se prépare en arrière-plan
+              count.textContent = pad(n + 1) + " / " + pad(vids.length);
               ticks.forEach(function (t, k) { t.className = k < n ? "is-done" : ""; });
               void ticks[n].offsetWidth; ticks[n].className = "is-on";
-              if (!reduce) { flash.classList.remove("is-go"); void flash.offsetWidth; flash.classList.add("is-go"); }
+              if (!reduce && prev != null) { flash.classList.remove("is-go"); void flash.offsetWidth; flash.classList.add("is-go"); }
             }
-            function next() { i = (i + 1) % shots.length; show(i); }
+            function next() { var p = i; i = (i + 1) % vids.length; show(i, p); }
             function start() {
               if (running || reduce) return;
               running = true;
               timer = setInterval(next, SHOT);
-              vids[front].play().catch(function () {});
+              vids[i].play().catch(function () {});
             }
             function stop() { running = false; clearInterval(timer); vids.forEach(function (v) { v.pause(); }); }
 
-            // premier plan visible tout de suite, le suivant se prépare en arrière-plan
-            load(vids[0], 0); vids[0].classList.add("is-on");
-            load(vids[1], 1);
+            // premier plan visible tout de suite (image fixe si animations réduites)
+            prep(vids[0]); vids[0].classList.add("is-on"); prep(vids[1]);
             ticks[0].className = "is-on";
             if (reduce) return;
             var inView = true;

@@ -40,7 +40,7 @@ PORTFOLIO NARCISSE/
 │   ├── cta.html          Bloc « Parlons de votre projet » + coordonnées
 │   └── footer.html       Pied de page + script
 ├── vite.config.js        Pages auto-détectées + système d'inclusion
-├── public/assets/cv/     Déposer cv-yves-narcisse-loue.pdf
+├── public/assets/cv/     CV : cv-loue-tagnon-yves.jpg
 └── assets/
     ├── css/style.css     Styles + couleurs (:root)
     ├── js/main.js        Animations et interactions
