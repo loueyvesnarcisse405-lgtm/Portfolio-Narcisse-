@@ -29,11 +29,138 @@
     <section class="section" style="padding-bottom:0">
       <div class="container">
         <!-- Mettre le lien d'intégration du showreel : data-video="https://www.youtube.com/embed/ID" -->
+        <style>
+          /* Montage automatique du showreel : fondus enchaînés entre les réalisations */
+          .reel-mix { position: absolute; inset: 0; background: #050505; overflow: hidden; }
+          .reel-mix video {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+            opacity: 0; transform: scale(1.02); filter: saturate(1.08) contrast(1.06);
+            transition: opacity 1.4s ease, transform 6s linear;
+          }
+          .reel-mix video.is-on { opacity: 1; transform: scale(1.1); }
+          /* habillage : vignettage, dégradé or, grain, bandes cinéma */
+          .reel-mix__shade {
+            position: absolute; inset: 0; pointer-events: none;
+            background:
+              radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(0,0,0,.75) 100%),
+              linear-gradient(180deg, rgba(0,0,0,.35) 0%, transparent 25%, transparent 60%, rgba(0,0,0,.8) 100%),
+              linear-gradient(115deg, rgba(255,195,0,.16) 0%, transparent 40%);
+          }
+          .reel-mix__grain {
+            position: absolute; inset: -50%; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            animation: reel-grain .9s steps(4) infinite;
+          }
+          @keyframes reel-grain { 0%{transform:translate(0,0)} 25%{transform:translate(-4%,3%)} 50%{transform:translate(3%,-5%)} 75%{transform:translate(-2%,-2%)} 100%{transform:translate(0,0)} }
+          .reel-mix__flash {
+            position: absolute; inset: 0; pointer-events: none; opacity: 0;
+            background: linear-gradient(100deg, transparent 30%, rgba(255,214,90,.55) 50%, transparent 70%);
+            transform: translateX(-100%);
+          }
+          .reel-mix__flash.is-go { animation: reel-flash 1.1s ease-out; }
+          @keyframes reel-flash { 0%{opacity:0;transform:translateX(-100%)} 30%{opacity:.9} 100%{opacity:0;transform:translateX(100%)} }
+          .reel-mix__bars::before, .reel-mix__bars::after {
+            content: ""; position: absolute; left: 0; right: 0; height: 6%; background: #000; z-index: 1; pointer-events: none;
+          }
+          .reel-mix__bars::before { top: 0; } .reel-mix__bars::after { bottom: 0; }
+          .reel-mix__meta {
+            position: absolute; top: 9%; right: 30px; z-index: 3; display: flex; align-items: center; gap: 10px;
+            font: 600 12px/1 var(--font-body); letter-spacing: 2px; text-transform: uppercase; color: var(--text);
+          }
+          .reel-mix__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 12px var(--primary); animation: reel-blink 1.6s ease-in-out infinite; }
+          @keyframes reel-blink { 50% { opacity: .25; } }
+          .reel-mix__progress { position: absolute; left: 30px; right: 30px; bottom: 9%; z-index: 3; display: flex; gap: 6px; }
+          .reel-mix__progress i { flex: 1; height: 2px; background: rgba(255,255,255,.22); border-radius: 2px; overflow: hidden; }
+          .reel-mix__progress i::after { content: ""; display: block; height: 100%; width: 0; background: var(--primary); }
+          .reel-mix__progress i.is-done::after { width: 100%; }
+          .reel-mix__progress i.is-on::after { animation: reel-fill var(--shot, 4.5s) linear forwards; }
+          @keyframes reel-fill { to { width: 100%; } }
+          .showreel .showreel__caption { bottom: calc(9% + 22px); text-shadow: 0 4px 30px rgba(0,0,0,.6); }
+          @media (max-width: 700px) { .reel-mix__meta { right: 18px; } .reel-mix__progress { left: 18px; right: 18px; } }
+          @media (prefers-reduced-motion: reduce) {
+            .reel-mix video { transition: none; transform: none; }
+            .reel-mix__grain, .reel-mix__dot { animation: none; }
+          }
+        </style>
         <button type="button" class="showreel reveal" data-video="" aria-label="Lire le showreel">
-          <span class="ph" data-label="Image du showreel"></span>
+          <span class="reel-mix" data-reel-mix aria-hidden="true">
+            <video muted playsinline preload="none"></video>
+            <video muted playsinline preload="none"></video>
+            <span class="reel-mix__shade"></span>
+            <span class="reel-mix__grain"></span>
+            <span class="reel-mix__flash"></span>
+            <span class="reel-mix__bars"></span>
+            <span class="reel-mix__meta"><span class="reel-mix__dot"></span><span data-reel-count>01 / 08</span></span>
+            <span class="reel-mix__progress"></span>
+          </span>
           <span class="showreel__play"><svg><use href="#i-play"/></svg></span>
           <span class="showreel__caption">Showreel <span class="accent">2026</span></span>
         </button>
+        <script>
+          (function () {
+            var root = document.querySelector("[data-reel-mix]");
+            if (!root) return;
+            // Plans du montage : fichier + seconde de départ (on saute les génériques)
+            var shots = [
+              ["./assets/video/spot-01.mp4", 6],
+              ["./assets/video/motion/motion-07.mp4", 3],
+              ["./assets/video/spot-03.mp4", 5],
+              ["./assets/video/motion/motion-12.mp4", 2],
+              ["./assets/video/motion/motion-08.mp4", 4],
+              ["./assets/video/motion/motion-14.mp4", 3],
+              ["./assets/video/motion/motion-09.mp4", 5],
+              ["./assets/video/motion/motion-02.mp4", 1]
+            ];
+            var SHOT = 4500;
+            var vids = root.querySelectorAll("video");
+            var flash = root.querySelector(".reel-mix__flash");
+            var count = root.querySelector("[data-reel-count]");
+            var bar = root.querySelector(".reel-mix__progress");
+            root.style.setProperty("--shot", SHOT / 1000 + "s");
+            shots.forEach(function () { bar.appendChild(document.createElement("i")); });
+            var ticks = bar.querySelectorAll("i");
+            var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var i = 0, front = 0, timer = null, running = false;
+
+            function load(v, n) {
+              v.src = shots[n][0] + "#t=" + shots[n][1];
+              v.preload = "auto";
+              v.load();
+            }
+            function pad(n) { return (n < 10 ? "0" : "") + n; }
+            function show(n) {
+              var cur = vids[front], nxt = vids[1 - front];
+              nxt.play().catch(function () {});
+              nxt.classList.add("is-on");
+              cur.classList.remove("is-on");
+              front = 1 - front;
+              setTimeout(function () { cur.pause(); load(cur, (n + 1) % shots.length); }, 1500);
+              count.textContent = pad(n + 1) + " / " + pad(shots.length);
+              ticks.forEach(function (t, k) { t.className = k < n ? "is-done" : ""; });
+              void ticks[n].offsetWidth; ticks[n].className = "is-on";
+              if (!reduce) { flash.classList.remove("is-go"); void flash.offsetWidth; flash.classList.add("is-go"); }
+            }
+            function next() { i = (i + 1) % shots.length; show(i); }
+            function start() {
+              if (running || reduce) return;
+              running = true;
+              timer = setInterval(next, SHOT);
+              vids[front].play().catch(function () {});
+            }
+            function stop() { running = false; clearInterval(timer); vids.forEach(function (v) { v.pause(); }); }
+
+            // premier plan visible tout de suite, le suivant se prépare en arrière-plan
+            load(vids[0], 0); vids[0].classList.add("is-on");
+            load(vids[1], 1);
+            ticks[0].className = "is-on";
+            if (reduce) return;
+            var inView = true;
+            if ("IntersectionObserver" in window) {
+              new IntersectionObserver(function (es) { inView = es[0].isIntersecting; inView ? start() : stop(); }, { threshold: 0.2 }).observe(root);
+            } else start();
+            document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); else if (inView) start(); });
+          })();
+        </script>
       </div>
     </section>
 
