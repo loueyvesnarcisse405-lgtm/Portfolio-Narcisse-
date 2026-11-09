@@ -1,4 +1,4 @@
-# Portfolio — Yves-Narcisse Loué (RACHID-USORSHI)
+# Portfolio — Loué Tagnon Yves (RACHID-UZOCHI)
 
 Réalisateur · Cadreur · Monteur vidéo — Abidjan, Côte d'Ivoire.
 
@@ -50,7 +50,7 @@ PORTFOLIO NARCISSE/
 ## Modifier le contenu
 - **Visuel** : les blocs gris `class="ph"` sont des emplacements d'images.
   ```html
-  <div class="ph hero__photo"><img src="./assets/img/portrait.jpg" alt="Portrait d'Yves-Narcisse Loué"></div>
+  <div class="ph hero__photo"><img src="./assets/img/portrait.jpg" alt="Portrait de Loué Tagnon Yves"></div>
   ```
 - **Vidéo** : renseigner `data-video="https://www.youtube.com/embed/ID"` (ou lien d'intégration Vimeo) sur le showreel et les boutons ▶.
 - **Nouveau projet** : copier `projet.html`, puis ajouter une carte `<article class="work" data-cat="video|photo|design">` dans `realisations.html` (et mettre à jour le compteur du filtre).

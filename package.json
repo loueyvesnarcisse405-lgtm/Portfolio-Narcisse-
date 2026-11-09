@@ -2,7 +2,7 @@
   "name": "portfolio-yves-narcisse-loue",
   "version": "1.0.0",
   "private": true,
-  "description": "Portfolio d'Yves-Narcisse Loué (RACHID-USORSHI) — réalisateur, cadreur & monteur vidéo",
+  "description": "Portfolio de Loué Tagnon Yves (RACHID-UZOCHI) — réalisateur, cadreur & monteur vidéo",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
